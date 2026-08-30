@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casa Maré — Clifftop, Algarve</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,400&family=Work+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #14232F;
+    --navy-deep: #0C1821;
+    --lime: #EDE6D8;
+    --lime-soft: #F5F1E8;
+    --teal: #4F7C82;
+    --teal-deep: #365559;
+    --brass: #A98548;
+    --coral: #B5553B;
+    --line: rgba(20,35,47,0.14);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--lime);
+    color: var(--navy);
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .display {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  .mono {
+    font-family: 'Space Mono', monospace;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 0 22px; }
+  }
+
+  /* ---------- NAV ---------- */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 26px 0;
+    transition: padding 0.4s ease, background 0.4s ease;
+  }
+  nav.scrolled {
+    padding: 16px 0;
+    background: rgba(237, 230, 216, 0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1.35rem;
+    letter-spacing: 0.01em;
+    color: var(--navy);
+  }
+  .logo em { font-style: italic; color: var(--teal); }
+  .nav-links {
+    display: flex;
+    gap: 38px;
+    font-size: 0.87rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .nav-links a { position: relative; padding-bottom: 4px; }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 0%; height: 1px;
+    background: var(--coral);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-book {
+    border: 1px solid var(--navy);
+    padding: 9px 20px;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .nav-book:hover { background: var(--navy); color: var(--lime); }
+  .nav-toggle { display: none; }
+
+  @media (max-width: 860px) {
+    .nav-links { display: none; }
+    .nav-toggle {
+      display: block;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: 1px solid var(--navy);
+      padding: 9px 18px;
+    }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: linear-gradient(180deg, #1B303F 0%, #14232F 42%, #0C1821 100%);
+    overflow: hidden;
+    color: var(--lime);
+  }
+
+  .hero-cliffs {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    padding-bottom: 84px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 26px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 26px; height: 1px;
+    background: var(--teal);
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 8vw, 6.4rem);
+    line-height: 0.98;
+    max-width: 900px;
+    font-weight: 300;
+  }
+  .hero h1 em { font-style: italic; color: var(--brass); font-weight: 400; }
+
+  .hero-sub {
+    max-width: 480px;
+    font-size: 1.05rem;
+    color: rgba(237,230,216,0.72);
+    margin-top: 26px;
+    font-weight: 300;
+  }
+
+  .hero-bottom-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 60px;
+    padding-top: 26px;
+    border-top: 1px solid rgba(237,230,216,0.18);
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+
+  .scroll-cue {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(237,230,216,0.5);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .scroll-cue .line {
+    width: 1px; height: 30px;
+    background: rgba(237,230,216,0.4);
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-cue .line::after {
+    content: '';
+    position: absolute;
+    top: -100%; left: 0;
+    width: 100%; height: 100%;
+    background: var(--brass);
+    animation: fall 1.8s ease-in-out infinite;
+  }
+  @keyframes fall {
+    0% { top: -100%; }
+    60%, 100% { top: 100%; }
+  }
+
+  /* tide clock signature element */
+  .tide-clock {
+    text-align: right;
+    font-family: 'Space Mono', monospace;
+  }
+  .tide-clock .tc-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(237,230,216,0.5);
+    margin-bottom: 6px;
+  }
+  .tide-clock .tc-time {
+    font-size: 1.5rem;
+    color: var(--lime);
+  }
+  .tide-clock .tc-sub {
+    font-size: 0.78rem;
+    color: var(--teal);
+    margin-top: 2px;
+  }
+
+  /* SVG waves at base of hero */
+  .wave-line { position: absolute; bottom: 0; left: 0; width: 100%; z-index: 2; opacity: 0.5; }
+
+  /* ---------- INTRO / PHILOSOPHY ---------- */
+  .intro {
+    padding: 130px 0 110px;
+  }
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 70px;
+    align-items: start;
+  }
+  .intro-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--coral);
+  }
+  .intro h2 {
+    font-size: clamp(1.9rem, 3.4vw, 2.7rem);
+    font-weight: 300;
+    line-height: 1.28;
+    margin-top: 18px;
+  }
+  .intro h2 em { font-style: italic; color: var(--teal-deep); }
+  .intro-body { font-size: 1rem; color: rgba(20,35,47,0.7); max-width: 480px; padding-top: 6px;}
+  .intro-body p + p { margin-top: 16px; }
+
+  /* ---------- TIDE TIMELINE (signature, real content: today's tides) ---------- */
+  .tides {
+    background: var(--navy);
+    color: var(--lime);
+    padding: 90px 0;
+  }
+  .tides-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .tides-head h3 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 300;
+  }
+  .tides-head h3 em { font-style: italic; color: var(--brass); }
+  .tides-note { font-family:'Space Mono',monospace; font-size: 0.8rem; color: rgba(237,230,216,0.5); max-width: 280px; }
+
+  .tide-rail {
+    position: relative;
+    height: 130px;
+    border-top: 1px solid rgba(237,230,216,0.2);
+    border-bottom: 1px solid rgba(237,230,216,0.2);
+    margin-bottom: 10px;
+  }
+  .tide-curve { position:absolute; inset:0; width:100%; height:100%; }
+  .tide-points { position: absolute; inset: 0; display: flex; }
+  .tide-point {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .tide-point .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--coral);
+    margin-bottom: 18px;
+  }
+  .tide-labels { display: flex; }
+  .tide-labels div {
+    flex: 1;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.76rem;
+    color: rgba(237,230,216,0.55);
+    padding-top: 14px;
+  }
+  .tide-labels strong { color: var(--lime); display:block; font-size:0.85rem; margin-bottom:2px;}
+
+  /* ---------- ROOMS ---------- */
+  .rooms { padding: 120px 0; }
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .section-head h2 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); font-weight: 300; }
+  .section-head h2 em { font-style: italic; color: var(--teal-deep); }
+  .section-head p { font-size: 0.92rem; color: rgba(20,35,47,0.6); max-width: 320px; }
+
+  .room-list { display: flex; flex-direction: column; }
+  .room {
+    display: grid;
+    grid-template-columns: 90px 1.1fr 1.4fr auto;
+    gap: 30px;
+    align-items: center;
+    padding: 34px 0;
+    border-top: 1px solid var(--line);
+    transition: background 0.3s ease;
+  }
+  .room:last-child { border-bottom: 1px solid var(--line); }
+  .room:hover { background: rgba(79,124,130,0.06); }
+  .room-num { font-family: 'Space Mono', monospace; color: var(--teal); font-size: 0.85rem; }
+  .room-name { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 400; }
+  .room-desc { font-size: 0.9rem; color: rgba(20,35,47,0.65); }
+  .room-price { text-align: right; font-family: 'Space Mono', monospace; font-size: 0.9rem; white-space: nowrap; }
+  .room-price span { display:block; font-size: 0.7rem; color: rgba(20,35,47,0.5); margin-top: 4px; }
+
+  @media (max-width: 780px) {
+    .room { grid-template-columns: 1fr; gap: 8px; text-align: left; }
+    .room-price { text-align: left; margin-top: 6px; }
+  }
+
+  /* ---------- EXPERIENCE STRIP ---------- */
+  .experience {
+    background: var(--lime-soft);
+    padding: 110px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .exp-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+  }
+  .exp-card { }
+  .exp-icon { width: 40px; height: 40px; margin-bottom: 22px; }
+  .exp-card h3 { font-size: 1.3rem; font-weight: 400; margin-bottom: 12px; }
+  .exp-card p { font-size: 0.9rem; color: rgba(20,35,47,0.65); }
+
+  @media (max-width: 780px) {
+    .exp-grid { grid-template-columns: 1fr; gap: 44px; }
+  }
+
+  /* ---------- BOOK / CTA ---------- */
+  .book {
+    padding: 130px 0;
+    text-align: center;
+  }
+  .book-eyebrow {
+    font-family:'Space Mono',monospace; font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase; color: var(--coral);
+  }
+  .book h2 {
+    font-size: clamp(2.1rem, 5vw, 3.6rem);
+    font-weight: 300;
+    max-width: 720px;
+    margin: 20px auto 44px;
+    line-height: 1.15;
+  }
+  .book h2 em { font-style: italic; color: var(--teal-deep); }
+
+  .book-form {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    max-width: 640px;
+    margin: 0 auto;
+    border: 1px solid var(--navy);
+    flex-wrap: wrap;
+  }
+  .book-form input, .book-form select {
+    flex: 1;
+    min-width: 140px;
+    border: none;
+    background: transparent;
+    padding: 18px 20px;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--navy);
+    border-right: 1px solid var(--line);
+  }
+  .book-form input:focus, .book-form select:focus { outline: 2px solid var(--coral); outline-offset: -2px; }
+  .book-form button {
+    border: none;
+    background: var(--navy);
+    color: var(--lime);
+    padding: 18px 32px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  .book-form button:hover { background: var(--coral); }
+
+  @media (max-width: 640px) {
+    .book-form { flex-direction: column; }
+    .book-form input, .book-form select { border-right: none; border-bottom: 1px solid var(--line); }
+  }
+
+  .book-note { margin-top: 22px; font-size: 0.8rem; color: rgba(20,35,47,0.5); font-family:'Space Mono',monospace;}
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    background: var(--navy-deep);
+    color: rgba(237,230,216,0.7);
+    padding: 70px 0 34px;
+  }
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 50px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid rgba(237,230,216,0.12);
+  }
+  .foot-logo { font-family:'Fraunces', serif; font-size: 1.4rem; color: var(--lime); margin-bottom: 16px;}
+  .foot-logo em { font-style: italic; color: var(--teal); }
+  .foot-col h4 {
+    font-family:'Space Mono',monospace; font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brass); margin-bottom: 16px;
+  }
+  .foot-col a, .foot-col p { display: block; font-size: 0.88rem; margin-bottom: 10px; color: rgba(237,230,216,0.68); }
+  .foot-col a:hover { color: var(--lime); }
+  .foot-bottom {
+    display: flex; justify-content: space-between; padding-top: 28px;
+    font-family:'Space Mono',monospace; font-size: 0.72rem; color: rgba(237,230,216,0.4);
+    flex-wrap: wrap; gap: 10px;
+  }
+
+  @media (max-width: 780px) {
+    .foot-grid { grid-template-columns: 1fr; gap: 34px; }
+  }
+
+  /* reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .scroll-cue .line::after { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="wrap">
+    <div class="logo">Casa <em>Maré</em></div>
+    <div class="nav-links">
+      <a href="#rooms">Rooms</a>
+      <a href="#tides">Tides</a>
+      <a href="#experience">Experience</a>
+      <a href="#book" class="nav-book">Reserve</a>
+    </div>
+    <div class="nav-toggle">Menu</div>
+  </div>
+</nav>
+
+<section class="hero">
+  <svg class="hero-cliffs" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1B303F"/>
+        <stop offset="100%" stop-color="#0C1821"/>
+      </linearGradient>
+      <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#365559"/>
+        <stop offset="100%" stop-color="#0C1821"/>
+      </linearGradient>
+    </defs>
+    <rect width="1440" height="900" fill="url(#sky)"/>
+    <circle cx="1180" cy="180" r="90" fill="#A98548" opacity="0.55"/>
+    <path d="M0,620 C300,560 500,640 760,600 C1000,565 1200,610 1440,560 L1440,900 L0,900 Z" fill="url(#sea)" opacity="0.9"/>
+    <path d="M0,700 C260,660 520,720 800,690 C1050,665 1250,700 1440,660 L1440,900 L0,900 Z" fill="#14232F"/>
+    <path d="M0,780 C300,820 600,760 900,800 C1150,830 1300,780 1440,800 L1440,0 L0,0 Z" fill="#0C1821"/>
+  </svg>
+
+  <div class="wrap hero-content">
+    <div class="hero-eyebrow">Ponta da Piedade · Algarve, Portugal</div>
+    <h1>Nine rooms, <em>one</em> horizon.</h1>
+    <p class="hero-sub">A clifftop house above the tide caves — built into limestone, kept quiet on purpose. No two stays taste the same, because the sea outside your window never sits still.</p>
+
+    <div class="hero-bottom-row">
+      <div class="scroll-cue">
+        <div class="line"></div>
+        Scroll
+      </div>
+      <div class="tide-clock">
+        <div class="tc-label">Current tide</div>
+        <div class="tc-time mono" id="tideNow">—</div>
+        <div class="tc-sub" id="tideState">reading water…</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="wrap intro-grid reveal">
+    <div>
+      <div class="intro-tag">The house</div>
+      <h2>Built low, <em>so the</em><br>cliff stays the point.</h2>
+    </div>
+    <div class="intro-body">
+      <p>Casa Maré sits on the same limestone shelf it's named for — <em style="font-style:italic">maré</em>, tide, because the caves beneath the terrace flood and empty twice a day, and we planned the house around watching it happen.</p>
+      <p>Nine rooms, one long terrace, a kitchen that cooks whatever the boats brought in that morning. No spa, no shuttle bus, no more than nine rooms — we found that's exactly how many the cliff can hold without crowding the view.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tides" id="tides">
+  <div class="wrap">
+    <div class="tides-head reveal">
+      <h3>Today's <em>tide</em> table</h3>
+      <p class="tides-note">Every room faces the caves. This is the rhythm you'll actually wake up to — not a brochure photo, the real chart for today.</p>
+    </div>
+    <div class="tide-rail reveal">
+      <svg class="tide-curve" viewBox="0 0 800 130" preserveAspectRatio="none">
+        <path d="M0,90 C80,20 160,20 240,90 C320,160 400,160 480,90 C560,20 640,20 720,90 C760,125 780,110 800,95"
+              fill="none" stroke="#A98548" stroke-width="1.5" opacity="0.65"/>
+      </svg>
+      <div class="tide-points">
+        <div class="tide-point"><div class="dot"></div></div>
+        <div class="tide-point"><div class="dot" style="margin-bottom:80px;"></div></div>
+        <div class="tide-point"><div class="dot"></div></div>
+        <div class="tide-point"><div class="dot" style="margin-bottom:80px;"></div></div>
+      </div>
+    </div>
+    <div class="tide-labels reveal">
+      <div><strong>05:42</strong>Low · 0.6m</div>
+      <div><strong>11:58</strong>High · 2.9m</div>
+      <div><strong>18:07</strong>Low · 0.5m</div>
+      <div><strong>23:49</strong>High · 3.1m</div>
+    </div>
+  </div>
+</section>
+
+<section class="rooms" id="rooms">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Nine rooms, <em>named</em><br>for the wind</h2>
+      <p>Each faces the caves. Rates hold from November to March; ask about the longer-stay rate for anything past five nights.</p>
+    </div>
+    <div class="room-list">
+      <div class="room reveal">
+        <div class="room-num">01</div>
+        <div class="room-name">Nortada</div>
+        <div class="room-desc">Corner room, two exposures, stone soaking tub facing the caves.</div>
+        <div class="room-price">€310<span>per night</span></div>
+      </div>
+      <div class="room reveal">
+        <div class="room-num">02</div>
+        <div class="room-name">Levante</div>
+        <div class="room-desc">Ground floor, private terrace opening straight onto the cliff path.</div>
+        <div class="room-price">€275<span>per night</span></div>
+      </div>
+      <div class="room reveal">
+        <div class="room-num">03</div>
+        <div class="room-name">Sueste</div>
+        <div class="room-desc">Top floor, widest sea line in the house, reading nook under the eave.</div>
+        <div class="room-price">€340<span>per night</span></div>
+      </div>
+      <div class="room reveal">
+        <div class="room-num">04</div>
+        <div class="room-name">Maresia</div>
+        <div class="room-desc">Smallest room, quietest wall, the one we give people who want to disappear.</div>
+        <div class="room-price">€240<span>per night</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="experience" id="experience">
+  <div class="wrap exp-grid">
+    <div class="exp-card reveal">
+      <svg class="exp-icon" viewBox="0 0 40 40" fill="none"><path d="M4 28c4-6 8-6 12 0s8 6 12 0 8-6 8-6" stroke="#4F7C82" stroke-width="1.6"/><path d="M4 20c4-6 8-6 12 0s8 6 12 0 8-6 8-6" stroke="#A98548" stroke-width="1.6" opacity="0.6"/></svg>
+      <h3>Cave swim, sunrise</h3>
+      <p>A guided low-tide walk into the sea caves below the house — only possible two mornings a week, weather and tide willing.</p>
+    </div>
+    <div class="exp-card reveal">
+      <svg class="exp-icon" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="14" stroke="#B5553B" stroke-width="1.6"/><path d="M20 10v10l7 4" stroke="#B5553B" stroke-width="1.6"/></svg>
+      <h3>Boat-to-table dinner</h3>
+      <p>The evening menu is written after the morning catch comes in — usually by 4pm, posted on the terrace chalkboard.</p>
+    </div>
+    <div class="exp-card reveal">
+      <svg class="exp-icon" viewBox="0 0 40 40" fill="none"><path d="M6 30 L20 8 L34 30" stroke="#A98548" stroke-width="1.6" fill="none"/><path d="M12 30 L20 18 L28 30" stroke="#4F7C82" stroke-width="1.6" fill="none"/></svg>
+      <h3>Cliff path to Lagos</h3>
+      <p>Forty minutes on foot into town along the coastal trail — we'll pack the walk with a chilled bottle if you ask the night before.</p>
+    </div>
+  </div>
+</section>
+
+<section class="book" id="book">
+  <div class="wrap">
+    <div class="book-eyebrow reveal">Reserve</div>
+    <h2 class="reveal">Come watch it <em>flood</em>,<br>then empty again.</h2>
+    <form class="book-form reveal" onsubmit="return false;">
+      <input type="date" aria-label="Arrival date" required>
+      <input type="date" aria-label="Departure date" required>
+      <select aria-label="Guests">
+        <option>2 guests</option>
+        <option>1 guest</option>
+        <option>3 guests</option>
+        <option>4 guests</option>
+      </select>
+      <button type="submit">Check rooms</button>
+    </form>
+    <p class="book-note reveal">Demo interface — no reservation is actually made.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">Casa <em>Maré</em></div>
+        <p style="max-width:280px; font-size:0.88rem;">Estrada da Piedade, Lagos, Algarve, Portugal. Nine rooms above the tide caves.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Visit</h4>
+        <a href="#rooms">Rooms &amp; rates</a>
+        <a href="#experience">Experience</a>
+        <a href="#tides">Tide table</a>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <p>+351 282 000 000</p>
+        <p>stay@casamare.example</p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 Casa Maré. A fictional property, built for demonstration.</div>
+      <div>Lagos, Portugal</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // nav scroll state
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // simple tide clock — cycles a fake tide state based on current minute, just for atmosphere
+  function updateTide() {
+    const now = new Date();
+    const h = now.getHours().toString().padStart(2,'0');
+    const m = now.getMinutes().toString().padStart(2,'0');
+    document.getElementById('tideNow').textContent = `${h}:${m}`;
+
+    // toy sine-based tide approximation for flavor text only
+    const minutesToday = now.getHours()*60 + now.getMinutes();
+    const cyclePos = (minutesToday % 372) / 372; // ~6h12m tide cycle
+    const rising = cyclePos < 0.5;
+    const state = document.getElementById('tideState');
+    state.textContent = rising ? 'rising, toward the caves' : 'falling, off the caves';
+  }
+  updateTide();
+  setInterval(updateTide, 30000);
+</script>
+
+</body>
+</html>
